@@ -1,3 +1,2 @@
-# JW's Boiler Plate on Meteor
+# Holly-Mae Code
 
-This is a basic React and auth setup.
