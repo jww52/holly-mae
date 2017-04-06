@@ -14,7 +14,7 @@ export const DebtorProfileHeader = (props) => {
   };
 
   DebtorProfileHeader.propyTypes = {
-    meteorCall: Ract.PropTypes.func.isRequired
+    meteorCall: React.PropTypes.func.isRequired
   };
 
 export default createContainer(() => {

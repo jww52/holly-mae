@@ -1,10 +1,14 @@
 import React from 'react';
 import moment from 'moment';
+import { Session } from 'meteor/session';
+import { createContainer } from 'meteor/react-meteor-data';
 
 //Here is where you fill out the full debtor profile
-const DebtorProfileItem = (props) => {
+export const DebtorProfileItem = (props) => {
   return(
-    <div>
+    <div onClick={() => {
+      props.Session.set('selectedProfileId', props.debtor._id)
+    }}>
       <h5>{ props.debtor.fname || 'Unnamed' }</h5>
       <p>{ moment(props.debtor.createdAt).format('M/DD/YY') }</p>
     </div>
@@ -12,7 +16,10 @@ const DebtorProfileItem = (props) => {
 };
 
 DebtorProfileItem.propTypes = {
-  debtor: React.PropTypes.object.isRequired
+  debtor: React.PropTypes.object.isRequired,
+  Session: React.PropTypes.object.isRequired
 };
 
-export default DebtorProfileItem;
+export default createContainer(() => {
+  return {Session}
+}, DebtorProfileItem);
