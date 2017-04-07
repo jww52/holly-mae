@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
+import { Session } from 'meteor/session';
 
 import { Debtors } from '../api/debtors';
 import DebtorProfileHeader from './DebtorProfileHeader';
@@ -26,9 +27,15 @@ DebtorProfile.propTypes = {
 };
 
 export default createContainer(() => {
+  const selectedProfileId = Session.get('selectedProfileId')
   Meteor.subscribe('debtors');
 
   return {
-    debtors: Debtors.find().fetch()
+    debtors: Debtors.find().fetch().map(function(debtor) {
+      return {
+        ...debtor,
+        selected: debtor._id === selectedProfileId
+      };
+    })
   };
 }, DebtorProfile);

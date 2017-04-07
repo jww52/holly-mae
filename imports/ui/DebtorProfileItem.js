@@ -10,6 +10,7 @@ export const DebtorProfileItem = (props) => {
       props.Session.set('selectedProfileId', props.debtor._id)
     }}>
       <h5>{ props.debtor.fname || 'Unnamed' }</h5>
+      {  props.debtor.selected ? 'selected' : undefined }
       <p>{ moment(props.debtor.createdAt).format('M/DD/YY') }</p>
     </div>
   );

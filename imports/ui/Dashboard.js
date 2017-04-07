@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 // import Modal from 'react-modal';
 
 import PrivateHeader from './PrivateHeader';
-// import EditDebtor from './EditDebtor';
+import EditDebtor from './EditDebtor';
 import DebtorProfile from './DebtorProfile';
 
 export default () => {
@@ -13,6 +13,7 @@ export default () => {
       <PrivateHeader title="Your Dashboard"/>
       <div className="page-content">
         <DebtorProfile/>
+        <EditDebtor/>
         {/* <EditDebtor/> */}
       </div>
 
