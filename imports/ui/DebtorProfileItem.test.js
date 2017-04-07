@@ -20,7 +20,7 @@ if (Meteor.isClient) {
       const wrapper = mount(<DebtorProfileItem debtor={debtors[0]} Session={Session}/>);
 
       expect(wrapper.find('h5').text()).toBe(debtors[0].fname);
-      expect(wrapper.find('p').text()).toBe('4/06/17');
+      expect(wrapper.find('p').text()).toBe('4/07/17');
     });
 
     it('should set default first name if no title set', function() {

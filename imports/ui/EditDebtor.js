@@ -3,83 +3,127 @@ import { Meteor } from 'meteor/meteor';
 import Modal from 'react-modal';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Session } from 'meteor/session';
+import { browserHistory } from 'react-router';
 
 import { Debtors } from '../api/debtors';
 
 export class EditDebtor extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        fname: '',
+        middle: '',
+        lname: '',
+        phone: '',
+        email: '',
+        mailing: '',
+        apt: '',
+        city: '',
+        state: '',
+        zip: '',
+        debt: ''
+      };
+    }
+
   handleFnameChange(e) {
-    this.props.call('debtors.update', this.props.debtor._id, {
-      fname: e.target.value
-    });
+    const fname = e.target.value;
+    this.setState({ fname })
+    this.props.call('debtors.update', this.props.debtor._id, { fname });
   }
   handleMIChange(e) {
-    this.props.call('debtors.update', this.props.debtor._id, {
-      middle: e.target.value
-    });
+    const middle = e.target.value;
+    this.setState({ middle })
+    this.props.call('debtors.update', this.props.debtor._id, { middle });
   }
   handleLnameChange(e) {
-    this.props.call('debtors.update', this.props.debtor._id, {
-      lname: e.target.value
-    });
+    const lname = e.target.value;
+    this.setState({ lname })
+    this.props.call('debtors.update', this.props.debtor._id, { lname });
   }
   handlePhoneChange(e) {
-    this.props.call('debtors.update', this.props.debtor._id, {
-      phone: e.target.value
-    });
+    const phone = e.target.value;
+    this.setState({ phone })
+    this.props.call('debtors.update', this.props.debtor._id, { phone });
   }
   handleEmailChange(e) {
-    this.props.call('debtors.update', this.props.debtor._id, {
-      email: e.target.value
-    });
+    const email = e.target.value;
+    this.setState({ email })
+    this.props.call('debtors.update', this.props.debtor._id, { email });
   }
   handleMailingChange(e) {
-    this.props.call('debtors.update', this.props.debtor._id, {
-      mailing: e.target.value
-    });
+    const mailing = e.target.value;
+    this.setState({ mailing })
+    this.props.call('debtors.update', this.props.debtor._id, { mailing });
   }
   handleAptChange(e) {
-    this.props.call('debtors.update', this.props.debtor._id, {
-      apt: e.target.value
-    });
+    const apt = e.target.value;
+    this.setState({ apt })
+    this.props.call('debtors.update', this.props.debtor._id, { apt });
   }
   handleCityChange(e) {
-    this.props.call('debtors.update', this.props.debtor._id, {
-      city: e.target.value
-    });
+    const city = e.target.value;
+    this.setState({ city })
+    this.props.call('debtors.update', this.props.debtor._id, { city });
   }
   handleStateChange(e) {
-    this.props.call('debtors.update', this.props.debtor._id, {
-      state: e.target.value
-    });
+    const state = e.target.value;
+    this.setState({ state })
+    this.props.call('debtors.update', this.props.debtor._id, { state });
   }
   handleZipChange(e) {
-    this.props.call('debtors.update', this.props.debtor._id, {
-      zip: e.target.value
-    });
+    const zip = e.target.value;
+    this.setState({ zip })
+    this.props.call('debtors.update', this.props.debtor._id, { zip });
   }
   handleDebtChange(e) {
-    this.props.call('debtors.update', this.props.debtor._id, {
-      debt: e.target.value
-    });
+    const debt = e.target.value;
+    this.setState({ debt })
+    this.props.call('debtors.update', this.props.debtor._id, { debt });
+  }
+
+  handleRemoval() {
+    this.props.call('debtors.remove', this.props.debtor._id);
+    this.props.browserHistory.push('/dashboard');
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const currentProfileId =  this.props.debtor ? this.props.debtor._id : undefined;
+    const prevProfileId = prevProps.debtor ? prevProps.debtor._id : undefined;
+
+    if (currentProfileId && currentProfileId !== prevProfileId) {
+      this.setState({
+        fname: this.props.debtor.fname,
+        middle: this.props.debtor.middle,
+        lname: this.props.debtor.lname,
+        phone: this.props.debtor.phone,
+        email: this.props.debtor.email,
+        mailing: this.props.debtor.mailing,
+        apt: this.props.debtor.apt,
+        city: this.props.debtor.city,
+        state: this.props.debtor.state,
+        zip: this.props.debtor.zip,
+        debt: this.props.debtor.debt
+      })
+    }
   }
 
   render () {
     if (this.props.debtor) {
       return (
         <div>
-          <input value={this.props.debtor.fname} placeholder="First Name" onChange={this.handleFnameChange.bind(this)}/>
-          <input value={this.props.debtor.middle} placeholder="MI" onChange={this.handleMIChange.bind(this)}/>
-          <input value={this.props.debtor.lname} placeholder="Last Name" onChange={this.handleLnameChange.bind(this)}/>
-          <input value={this.props.debtor.phone} placeholder="Phone" onChange={this.handlePhoneChange.bind(this)}/>
-          <input value={this.props.debtor.email} placeholder="Email" onChange={this.handleEmailChange.bind(this)}/>
-          <input value={this.props.debtor.mailing} placeholder="Street Address" onChange={this.handleMailingChange.bind(this)}/>
-          <input value={this.props.debtor.apt} placeholder="Apt" onChange={this.handleAptChange.bind(this)}/>
-          <input value={this.props.debtor.city} placeholder="City" onChange={this.handleCityChange.bind(this)}/>
-          <input value={this.props.debtor.state} placeholder="State" onChange={this.handleStateChange.bind(this)}/>
-          <input value={this.props.debtor.zip} placeholder="Zip" onChange={this.handleZipChange.bind(this)}/>
-          <input value={this.props.debtor.debt} placeholder="Est Student Debt" onChange={this.handleDebtChange.bind(this)}/>
+          <input className="fname" value={this.state.fname} placeholder="First Name" onChange={this.handleFnameChange.bind(this)}/>
+          <input value={this.state.middle} placeholder="MI" onChange={this.handleMIChange.bind(this)}/>
+          <input value={this.state.lname} placeholder="Last Name" onChange={this.handleLnameChange.bind(this)}/>
+          <input value={this.state.phone} placeholder="Phone" onChange={this.handlePhoneChange.bind(this)}/>
+          <input value={this.state.email} placeholder="Email" onChange={this.handleEmailChange.bind(this)}/>
+          <input value={this.state.mailing} placeholder="Street Address" onChange={this.handleMailingChange.bind(this)}/>
+          <input value={this.state.apt} placeholder="Apt" onChange={this.handleAptChange.bind(this)}/>
+          <input className="city" value={this.state.city} placeholder="City" onChange={this.handleCityChange.bind(this)}/>
+          <input value={this.state.state} placeholder="State" onChange={this.handleStateChange.bind(this)}/>
+          <input value={this.state.zip} placeholder="Zip" onChange={this.handleZipChange.bind(this)}/>
+          <input value={this.state.debt} placeholder="Est Student Debt" onChange={this.handleDebtChange.bind(this)}/>
 
-          <button>Delete Note</button>
+          <button onClick={this.handleRemoval.bind(this)}>Delete Note</button>
         </div>
       );
     } else {
@@ -92,7 +136,9 @@ export class EditDebtor extends React.Component {
 
 EditDebtor.propTypes = {
   debtor: React.PropTypes.object,
-  selectedProfileId: React.PropTypes.string
+  selectedProfileId: React.PropTypes.string,
+  call: React.PropTypes.func.isRequired,
+  browserHistory: React.PropTypes.object.isRequired
 }
 
 export default createContainer(() => {
@@ -101,7 +147,8 @@ export default createContainer(() => {
   return {
     selectedProfileId,
     debtor: Debtors.findOne(selectedProfileId),
-    call: Meteor.call
+    call: Meteor.call,
+    browserHistory
   };
 }, EditDebtor);
 
